@@ -120,6 +120,9 @@ public class CropImageView extends ImageView {
     {
         Bitmap b = getBitmap();
 
+        if(b == null || cropPoints == null)
+            return;
+
         for(Point p: cropPoints)
         {
             if(p.y > b.getHeight())
