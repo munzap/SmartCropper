@@ -116,6 +116,25 @@ public class CropImageView extends ImageView {
         ta.recycle();
     }
 
+    public  void fixCropPointsBoundaries(Point[] cropPoints)
+    {
+        Bitmap b = getBitmap();
+
+        for(Point p: cropPoints)
+        {
+            if(p.y > b.getHeight())
+                p.y = b.getHeight();
+
+            if(p.y < 0)
+                p.y = 0;
+
+            if(p.x > b.getWidth())
+                p.x = b.getWidth();
+
+            if(p.x < 0)
+                p.x = 0;
+        }
+    }
     /**
      * 设置选区
      * @param cropPoints 选区顶点
@@ -128,6 +147,7 @@ public class CropImageView extends ImageView {
         if (!checkPoints(cropPoints)) {
             setFullImgCrop();
         } else {
+            fixCropPointsBoundaries(cropPoints);
             this.mCropPoints = cropPoints;
             invalidate();
         }
